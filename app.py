@@ -3,20 +3,15 @@ import weatherBlock
 
 app = Flask(__name__)
 
+weather_time_day = ["3am","6am","9am","12pm","3pm","6pm","9pm","12pm"]
 
 @app.route("/")
 def homeDashboard():
     feels_like = weatherBlock.main()
-    cat = weatherBlock.main()  # calling weatherBlock file
-    dog = round(cat[0])
-    dog1 = cat[1]
-    dog2 = round(cat[2])
-    dog3 = round(cat[3])
-    dog4 = round(cat[4])
-    return render_template("index.html", feels_like=feels_like, content="TESTING", content2=dog, content3=dog1,
-                           content4=dog2,
-                           content5=dog3,
-                           content6=dog4)
+
+
+    return render_template("index.html", feels_like=feels_like,
+                           weather_time_day=weather_time_day)
 
 
 if __name__ == '__main__':
