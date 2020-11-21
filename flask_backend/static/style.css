@@ -9,15 +9,17 @@ h1{
     padding-top: 20px;
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 10px;
-    width: 850px;
+    width: 700px;
     height: 350px;
     margin:auto;
 }
 
 #weatherContainer p{
     padding-left: 20px;
+    color:#EFEFEF;
 }
 #weatherContainer table{
+    table-layout: auto;
     color:#EFEFEF;
-    margin: 0 auto;
+    width: 100%;
 }
