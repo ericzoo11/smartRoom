@@ -14,12 +14,24 @@ h1{
     margin:auto;
 }
 
-#weatherContainer p{
+#heading1{
     padding-left: 20px;
     color:#EFEFEF;
 }
-#weatherContainer table{
+.feelsliketable{
     table-layout: auto;
     color:#EFEFEF;
     width: 100%;
+}
+
+#currentforecast{
+    height:220px;
+}
+
+#forecast{
+    width:400px;
+}
+
+#weeklyforecast{
+    width:300px
 }
