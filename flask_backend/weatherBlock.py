@@ -72,8 +72,8 @@ print("the size of list", len(test))
 dog = unit_conversion(test)
 print(*dog, sep=", ")
 
-#test2 = data_API()
-#print(json.dumps(test2, indent=4, sort_keys=True))
+test2 = data_API()
+print(json.dumps(test2, indent=4, sort_keys=True))
 
 # print(type(y))
 # print(round(y[0]), y[1], round(y[2]), y[3])

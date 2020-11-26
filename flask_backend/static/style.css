@@ -5,10 +5,10 @@ h1{
 #weatherContainer{
     text-align:center;
     color:#EFEFEF;
-    background-color: #23303D;
+    background-color: #395159;
     padding-top: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 700px;
     height: 350px;
     margin:auto;
