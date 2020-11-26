@@ -7,10 +7,10 @@ weekly_data = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 dog_test = "Hi:8   Low:0   H:90%"
 @app.route("/")
 def homeDashboard():
-    feels_like = weatherBlock.main()
+    day_data = weatherBlock.main()
 
-    return render_template("index.html", feels_like_temp=feels_like[0], feels_like_time=feels_like[1]
-                           ,weekly_data=weekly_data, dog_test=dog_test)
+    return render_template("index.html", day_temps=day_data[0], day_timestamps=day_data[1],
+                           current_temp=day_data[2], weekly_data=weekly_data, dog_test=dog_test)
 
 if __name__ == '__main__':
     app.run(debug=True)

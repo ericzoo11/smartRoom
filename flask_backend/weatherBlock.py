@@ -36,14 +36,19 @@ def temp_throughout_day(data):
     temp_list = []  # initializing list
     time_list = []
 
+    # get temp throughout day
     for i in range(0, 8, 1):
         day_temp = data['list'][i]['main']['temp']
         temp_list.append(day_temp)
 
+    # get corresponding times to temperature
     for i in range(0, 8, 1):
         date = data['list'][i]['dt_txt']
         time_list.append(date)
-    return temp_list, time_list
+
+    current_temp = data['list'][0]['main']['temp']
+
+    return temp_list, time_list, current_temp
 
 
 def parse_data(data):
@@ -95,19 +100,21 @@ def time_extract(time_list):
 
 def main():
     temp_throughday = temp_throughout_day(data_API())
-    temp1 = unit_conversion(temp_throughday[0])
-    temp2 = time_extract(temp_throughday[1])
+    day_temp = unit_conversion(temp_throughday[0])
+    day_timestamp = time_extract(temp_throughday[1])
+    current_temp = round(temp_throughday[2]-273.15)
 
-    return temp1, temp2
+    return day_temp, day_timestamp, current_temp
 
 
-test = temp_throughout_day(data_API())
-test2 = time_extract(test[1])
+#test = temp_throughout_day(data_API())
+#test2 = time_extract(test[1])
+
+
 # print("the size of list", len(test))
 
 # dog = unit_conversion(test)
-print(*test2, sep=", ")
-#test
+#print(*test2, sep=", ")
 test2 = data_API()
 print(json.dumps(test2, indent=4, sort_keys=True))
 

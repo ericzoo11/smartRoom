@@ -11,7 +11,7 @@
                 <div id="weatherContainer" class="container">
                     <div id="currentforecast" class="row">
                         <div id="forecasttemp" class="column">
-                            <p>18°</p>
+                            <p>{{ current_temp }}° </p>
                         </div>
                         <div id="forecast" class="column">
                             <img src="../static/images/pngegg.png" alt="test" style="width:170px; height:170px">
@@ -33,21 +33,21 @@
                         </div>
                     </div>
                     <div id="heading1" class="row">
-                        <p>Feels Like</p>
+                        <p>Throughout Day</p>
                     </div>
                     <div>
                         <table class="feelsliketable">
                             <tr>
                                 {%for i in range(0, 8)%}
                                     <td>
-                                        {{ feels_like_temp[i] }} °C
+                                        {{ day_temps[i] }} °C
                                     </td>
                                 {%endfor%}
                             </tr>
                             <tr>
                                 {%for i in range(0, 8)%}
                                     <td>
-                                        {{  feels_like_time[i] }}
+                                        {{  day_timestamps[i] }}
                                     </td>
                                 {%endfor%}
                             </tr>
