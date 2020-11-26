@@ -32,13 +32,18 @@ def temp_of_week(data):
     return temp_list
 
 
-def temp_of_day(data):
+def temp_throughout_day(data):
     temp_list = []  # initializing list
+    time_list = []
 
     for i in range(0, 8, 1):
         day_temp = data['list'][i]['main']['temp']
         temp_list.append(day_temp)
-    return temp_list
+
+    for i in range(0, 8, 1):
+        date = data['list'][i]['dt_txt']
+        time_list.append(date)
+    return temp_list, time_list
 
 
 def parse_data(data):
@@ -61,16 +66,47 @@ def parse_data(data):
     return current_temp, current_forecast, feels_like, current_humidity, next_day2
 
 
+def time_extract(time_list):
+    new_list = []
+    for i in time_list:
+        string = i
+        last_chars = string[-8:]
+        if last_chars == "03:00:00":
+            last_chars = "3am"
+        elif last_chars == "06:00:00":
+            last_chars = "6am"
+        elif last_chars == "09:00:00":
+            last_chars = "9am"
+        elif last_chars == "12:00:00":
+            last_chars = "12pm"
+        elif last_chars == "15:00:00":
+            last_chars = "3pm"
+        elif last_chars == "18:00:00":
+            last_chars = "6pm"
+        elif last_chars == "21:00:00":
+            last_chars = "9pm"
+        elif last_chars == "00:00:00":
+            last_chars = "12am"
+
+        new_list.append(last_chars)
+
+    return new_list
+
+
 def main():
+    temp_throughday = temp_throughout_day(data_API())
+    temp1 = unit_conversion(temp_throughday[0])
+    temp2 = time_extract(temp_throughday[1])
 
-    feels_like = unit_conversion(temp_of_day(data_API()))
-    return feels_like
+    return temp1, temp2
 
-test = temp_of_day(data_API())
-print("the size of list", len(test))
 
-dog = unit_conversion(test)
-print(*dog, sep=", ")
+test = temp_throughout_day(data_API())
+test2 = time_extract(test[1])
+# print("the size of list", len(test))
+
+# dog = unit_conversion(test)
+print(*test2, sep=", ")
 
 test2 = data_API()
 print(json.dumps(test2, indent=4, sort_keys=True))
