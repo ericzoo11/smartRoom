@@ -46,9 +46,14 @@ def temp_throughout_day(data):
         date = data['list'][i]['dt_txt']
         time_list.append(date)
 
+    # get current temperature
     current_temp = data['list'][0]['main']['temp']
 
-    return temp_list, time_list, current_temp
+    current_forecast = data['list'][0]['weather'][0]['description']
+
+    selector = data['list'][0]['weather'][0]['main']
+
+    return temp_list, time_list, current_temp, current_forecast, selector
 
 
 def parse_data(data):
@@ -103,12 +108,10 @@ def main():
     day_temp = unit_conversion(temp_throughday[0])
     day_timestamp = time_extract(temp_throughday[1])
     current_temp = round(temp_throughday[2]-273.15)
+    current_forecast = temp_throughday[3]
+    forcast_selector = temp_throughday[4]
 
-    return day_temp, day_timestamp, current_temp
-
-
-#test = temp_throughout_day(data_API())
-#test2 = time_extract(test[1])
+    return day_temp, day_timestamp, current_temp, current_forecast
 
 
 # print("the size of list", len(test))

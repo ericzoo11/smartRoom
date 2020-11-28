@@ -11,7 +11,15 @@
                 <div id="weatherContainer" class="container">
                     <div id="currentforecast" class="row">
                         <div id="forecasttemp" class="column">
-                            <p>{{ current_temp }}° </p>
+                            <div class="row" style="font-size: 15px">
+                                <p> {{ current_forecast }} </p>
+                            </div>
+                            <div class="row">
+                                <p> {{ current_temp }}° </p>
+                            </div>
+                            <div class="row">
+                                <p> {{ current_temp }}° </p>
+                            </div>
                         </div>
                         <div id="forecast" class="column">
                             <img src="../static/images/pngegg.png" alt="test" style="width:170px; height:170px">
