@@ -5,7 +5,6 @@ import json
 current = 0
 next = 1
 
-
 def unit_conversion(temp_list):
     temp1 = []
     for i in temp_list:
@@ -32,7 +31,7 @@ def temp_of_week(data):
     return temp_list
 
 
-def temp_throughout_day(data):
+def data_through_day(data):
     temp_list = []  # initializing list
     time_list = []
 
@@ -53,7 +52,12 @@ def temp_throughout_day(data):
 
     selector = data['list'][0]['weather'][0]['main']
 
-    return temp_list, time_list, current_temp, current_forecast, selector
+    date_hold = data['list'][0]['dt_txt']
+    date_hold = date_hold[0:10]
+
+    hi_low_list = hi_low(date_hold, data)
+
+    return temp_list, time_list, current_temp, current_forecast, selector, hi_low_list
 
 
 def parse_data(data):
@@ -74,6 +78,68 @@ def parse_data(data):
     next_day2 = unit_conversion(next_day2)
 
     return current_temp, current_forecast, feels_like, current_humidity, next_day2
+
+
+def data_through_week(data):
+
+    dates_list = []
+    day1_list = []
+    day2_list = []
+    day3_list = []
+    day4_list = []
+    day5_list = []
+
+    list_len = len(data['list'])
+
+    for i in range(list_len):
+        date = data['list'][i]['dt_txt']
+        date = date[0:10]
+        dates_list.append(date)
+
+    # removes repeated dates in list
+    dates_list = list(dict.fromkeys(dates_list))
+
+    # day 1
+    day1 = dates_list[0]
+    day1_list = hi_low(day1, data)
+
+    # day 2
+    day2 = dates_list[1]
+    day2_list = hi_low(day2, data) 
+
+    # day 3
+    day3 = dates_list[2]
+    day3_list = hi_low(day3, data)
+
+    # day 4
+    day4 = dates_list[3]
+    day4_list = hi_low(day4, data)
+
+    # day 5
+    day5 = dates_list[4]
+    day5_list = hi_low(day5, data)
+
+    return day1_list, day2_list, day3_list, day4_list, day5_list
+
+
+def hi_low(current_date, data):
+    hi_list = [] # list to hold high values of the week
+    low_list = [] # list to hold low values of the week
+
+    list_len = len(data['list'])
+
+    for i in range(list_len):
+        dates = data['list'][i]['dt_txt']
+        if current_date in dates:
+            hi_temp = data['list'][i]['main']['temp_max']
+            low_temp = data['list'][i]['main']['temp_min']
+            hi_list.append(hi_temp)
+            low_list.append(low_temp)
+
+    hi_val = round(max(hi_list) - 273.15)
+    low_val = round(min(low_list) - 273.15)
+
+    return hi_val, low_val
 
 
 def time_extract(time_list):
@@ -104,22 +170,26 @@ def time_extract(time_list):
 
 
 def main():
-    temp_throughday = temp_throughout_day(data_API())
+    temp_throughday = data_through_day(data_API())
     day_temp = unit_conversion(temp_throughday[0])
     day_timestamp = time_extract(temp_throughday[1])
     current_temp = round(temp_throughday[2]-273.15)
     current_forecast = temp_throughday[3]
     forcast_selector = temp_throughday[4]
+    hi_low_of_day = temp_throughday[5]
 
-    return day_temp, day_timestamp, current_temp, current_forecast
+    return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day,
 
 
-# print("the size of list", len(test))
+test = data_through_week((data_API()))
 
+#print(test[0])
+#print(test[1])
 # dog = unit_conversion(test)
-#print(*test2, sep=", ")
-test2 = data_API()
-print(json.dumps(test2, indent=4, sort_keys=True))
+print(*test, sep=", ")
+#print(*test[1], sep=", ")
+#test2 = data_API()
+#print(json.dumps(test2, indent=4, sort_keys=True))
 
 # print(type(y))
 # print(round(y[0]), y[1], round(y[2]), y[3])

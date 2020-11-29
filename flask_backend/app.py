@@ -11,7 +11,7 @@ def homeDashboard():
 
     return render_template("index.html", day_temps=day_data[0], day_timestamps=day_data[1],
                            current_temp=day_data[2], current_forecast=day_data[3], dog_test=dog_test,
-                           weekly_data=weekly_data)
+                           weekly_data=weekly_data, hi_low_of_day=day_data[4])
 
 if __name__ == '__main__':
     app.run(debug=True)
