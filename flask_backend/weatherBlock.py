@@ -1,9 +1,11 @@
 import requests
 import json
+import datetime
 
 # global variables
 current = 0
 next = 1
+
 
 def unit_conversion(temp_list):
     temp1 = []
@@ -81,13 +83,7 @@ def parse_data(data):
 
 
 def data_through_week(data):
-
     dates_list = []
-    day1_list = []
-    day2_list = []
-    day3_list = []
-    day4_list = []
-    day5_list = []
 
     list_len = len(data['list'])
 
@@ -102,29 +98,78 @@ def data_through_week(data):
     # day 1
     day1 = dates_list[0]
     day1_list = hi_low(day1, data)
+    weekday1 = day_of_the_week(day1)
 
     # day 2
     day2 = dates_list[1]
-    day2_list = hi_low(day2, data) 
+    day2_list = hi_low(day2, data)
+    weekday2 = day_of_the_week(day2)
 
     # day 3
     day3 = dates_list[2]
     day3_list = hi_low(day3, data)
+    weekday3 = day_of_the_week(day3)
 
     # day 4
     day4 = dates_list[3]
     day4_list = hi_low(day4, data)
+    weekday4 = day_of_the_week(day4)
 
     # day 5
     day5 = dates_list[4]
     day5_list = hi_low(day5, data)
+    weekday5 = day_of_the_week(day5)
 
-    return day1_list, day2_list, day3_list, day4_list, day5_list
+    # list to hold the weekday strings
+    list1 = []
+    list1.append(weekday1)
+    list1.append(weekday2)
+    list1.append(weekday3)
+    list1.append(weekday4)
+    list1.append(weekday5)
+
+    # list to hold the hi and lows of each weekday
+    list2 = []
+    list2.append(day1_list)
+    list2.append(day2_list)
+    list2.append(day3_list)
+    list2.append(day4_list)
+    list2.append(day5_list)
+
+
+    return list1, list2
+
+
+
+# function which returns the weekday corresponding to a given date
+def day_of_the_week(string):
+    # converting string date to a datetime object
+    string_date = string
+    date_time_obj = datetime.datetime.strptime(string_date, '%Y-%m-%d')
+    # returns index number corresponding to the weekday
+    index = date_time_obj.weekday()
+
+    if index == 0:
+        weekday = "Mon"
+    elif index == 1:
+        weekday = "Tue"
+    elif index == 2:
+        weekday = "Wed"
+    elif index == 3:
+        weekday = "Thu"
+    elif index == 4:
+        weekday = "Fri"
+    elif index == 5:
+        weekday = "Sat"
+    elif index == 6:
+        weekday = "Sun"
+
+    return weekday
 
 
 def hi_low(current_date, data):
-    hi_list = [] # list to hold high values of the week
-    low_list = [] # list to hold low values of the week
+    hi_list = []  # list to hold high values of the week
+    low_list = []  # list to hold low values of the week
 
     list_len = len(data['list'])
 
@@ -173,23 +218,25 @@ def main():
     temp_throughday = data_through_day(data_API())
     day_temp = unit_conversion(temp_throughday[0])
     day_timestamp = time_extract(temp_throughday[1])
-    current_temp = round(temp_throughday[2]-273.15)
+    current_temp = round(temp_throughday[2] - 273.15)
     current_forecast = temp_throughday[3]
     forcast_selector = temp_throughday[4]
     hi_low_of_day = temp_throughday[5]
 
-    return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day,
+    weekday_strings, weekday_data = data_through_week(data_API())
+
+    return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day, weekday_strings, weekday_data
 
 
-test = data_through_week((data_API()))
+test, test2 = data_through_week(data_API())
 
-#print(test[0])
-#print(test[1])
+# print(test[0])
+# print(test[1])
 # dog = unit_conversion(test)
-print(*test, sep=", ")
-#print(*test[1], sep=", ")
-#test2 = data_API()
-#print(json.dumps(test2, indent=4, sort_keys=True))
+print(*test, sep=", ")  #
+print(*test2, sep=", ")
+# test2 = data_API()
+# print(json.dumps(test2, indent=4, sort_keys=True))
 
 # print(type(y))
 # print(round(y[0]), y[1], round(y[2]), y[3])

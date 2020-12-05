@@ -26,12 +26,12 @@
                         </div>
                         <div id="weeklyforecast" class="column">
                             <table class="weekdata">
-                                {%for i in range(0, 7)%}
+                                {%for i in range(0, 5)%}
                                     <tr>
                                         <th>
-                                            {{ weekly_data[i] }}
+                                            {{ weekday_strings[i] }}
                                         </th>
-                                        <td style="font-size:12px;">{{ dog_test }}</td>
+                                        <td style="font-size:12px;">Hi: {{ weekday_data[i][0] }} Low: {{ weekday_data[i][1] }}</td>
                                         <td>
                                             <img src="../static/images/pngegg.png" alt="test" style="width:20px; height:20px">
                                         </td>
