@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div id="forecast" class="column">
-                            <img src="../static/images/pngegg.png" alt="test" style="width:170px; height:170px">
+                            <img src="{{ forecast_image_current }}" alt="test" style="width:170px; height:170px">
                         </div>
                         <div id="weeklyforecast" class="column">
                             <table class="weekdata">
@@ -33,7 +33,7 @@
                                         </th>
                                         <td style="font-size:12px;">Hi: {{ weekday_data[i][0] }} Low: {{ weekday_data[i][1] }}</td>
                                         <td>
-                                            <img src="../static/images/pngegg.png" alt="test" style="width:20px; height:20px">
+                                            <img src= "{{ week_images[i] }}" alt="test" style="width:30px; height:30px">
                                         </td>
                                     </tr>
                                 {%endfor%}

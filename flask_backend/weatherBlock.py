@@ -50,7 +50,7 @@ def data_through_day(data):
     # get current temperature
     current_temp = data['list'][0]['main']['temp']
 
-    current_forecast = data['list'][0]['weather'][0]['description']
+    current_forecast = data['list'][0]['weather'][0]['main']
 
     selector = data['list'][0]['weather'][0]['main']
 
@@ -246,9 +246,10 @@ def main():
     forcast_selector = temp_throughday[4]
     hi_low_of_day = temp_throughday[5]
 
-    weekday_strings, weekday_data = data_through_week(data_API())
+    weekday_strings, weekday_data, weekday_forecast = data_through_week(data_API())
 
-    return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day, weekday_strings, weekday_data
+    return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day, weekday_strings, weekday_data, \
+           weekday_forecast
 
 
 test, test2, test3 = data_through_week(data_API())
