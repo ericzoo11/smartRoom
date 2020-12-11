@@ -83,6 +83,9 @@ def parse_data(data):
 
 
 def data_through_week(data):
+    list1 = []
+    list2 = []
+    list3 = []
     dates_list = []
 
     list_len = len(data['list'])
@@ -98,30 +101,34 @@ def data_through_week(data):
     # day 1
     day1 = dates_list[0]
     day1_list = hi_low(day1, data)
+    day1_forecast = curr_forecast(day1, data)
     weekday1 = day_of_the_week(day1)
 
     # day 2
     day2 = dates_list[1]
     day2_list = hi_low(day2, data)
+    day2_forecast = curr_forecast(day2, data)
     weekday2 = day_of_the_week(day2)
 
     # day 3
     day3 = dates_list[2]
     day3_list = hi_low(day3, data)
+    day3_forecast = curr_forecast(day3, data)
     weekday3 = day_of_the_week(day3)
 
     # day 4
     day4 = dates_list[3]
     day4_list = hi_low(day4, data)
+    day4_forecast = curr_forecast(day4, data)
     weekday4 = day_of_the_week(day4)
 
     # day 5
     day5 = dates_list[4]
     day5_list = hi_low(day5, data)
+    day5_forecast = curr_forecast(day5, data)
     weekday5 = day_of_the_week(day5)
 
     # list to hold the weekday strings
-    list1 = []
     list1.append(weekday1)
     list1.append(weekday2)
     list1.append(weekday3)
@@ -129,16 +136,19 @@ def data_through_week(data):
     list1.append(weekday5)
 
     # list to hold the hi and lows of each weekday
-    list2 = []
     list2.append(day1_list)
     list2.append(day2_list)
     list2.append(day3_list)
     list2.append(day4_list)
     list2.append(day5_list)
 
+    list3.append(day1_forecast)
+    list3.append(day2_forecast)
+    list3.append(day3_forecast)
+    list3.append(day4_forecast)
+    list3.append(day5_forecast)
 
-    return list1, list2
-
+    return list1, list2, list3
 
 
 # function which returns the weekday corresponding to a given date
@@ -165,6 +175,19 @@ def day_of_the_week(string):
         weekday = "Sun"
 
     return weekday
+
+
+def curr_forecast(current_date, data):
+    list_len = len(data['list'])
+
+    # get to the current index of the current date
+    for i in range(list_len):
+        dates = data['list'][i]['dt_txt']
+        if current_date in dates:
+            forecast = data['list'][i + 5]['weather'][0]['main']
+            break
+
+    return forecast
 
 
 def hi_low(current_date, data):
@@ -228,13 +251,13 @@ def main():
     return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day, weekday_strings, weekday_data
 
 
-test, test2 = data_through_week(data_API())
+test, test2, test3 = data_through_week(data_API())
 
 # print(test[0])
 # print(test[1])
 # dog = unit_conversion(test)
-print(*test, sep=", ")  #
-print(*test2, sep=", ")
+# print(*test, sep=", ")  #
+# print(*test2, sep=", ")
 # test2 = data_API()
 # print(json.dumps(test2, indent=4, sort_keys=True))
 
