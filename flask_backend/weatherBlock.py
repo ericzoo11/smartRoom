@@ -52,15 +52,14 @@ def data_through_day(data):
 
     current_forecast = data['list'][0]['weather'][0]['main']
 
-    selector = data['list'][0]['weather'][0]['main']
+    location = data['city']['name']
 
     date_hold = data['list'][0]['dt_txt']
     date_hold = date_hold[0:10]
 
     hi_low_list = hi_low(date_hold, data)
 
-    return temp_list, time_list, current_temp, current_forecast, selector, hi_low_list
-
+    return temp_list, time_list, current_temp, current_forecast, location, hi_low_list
 
 def parse_data(data):
     # get current temperature and convert to celcius
@@ -243,24 +242,24 @@ def main():
     day_timestamp = time_extract(temp_throughday[1])
     current_temp = round(temp_throughday[2] - 273.15)
     current_forecast = temp_throughday[3]
-    forcast_selector = temp_throughday[4]
+    location = temp_throughday[4]
     hi_low_of_day = temp_throughday[5]
 
     weekday_strings, weekday_data, weekday_forecast = data_through_week(data_API())
 
     return day_temp, day_timestamp, current_temp, current_forecast, hi_low_of_day, weekday_strings, weekday_data, \
-           weekday_forecast
+           weekday_forecast, location
 
 
-test, test2, test3 = data_through_week(data_API())
+#test, test2, test3 = data_through_week(data_API())
 
 # print(test[0])
 # print(test[1])
 # dog = unit_conversion(test)
 # print(*test, sep=", ")  #
 # print(*test2, sep=", ")
-# test2 = data_API()
-# print(json.dumps(test2, indent=4, sort_keys=True))
+#test2 = data_API()
+#print(json.dumps(test2, indent=4, sort_keys=True))
 
 # print(type(y))
 # print(round(y[0]), y[1], round(y[2]), y[3])

@@ -11,7 +11,7 @@ def homeDashboard():
 
     week_forecast = day_data[7]
     forecast_length = len(week_forecast)
-    print(week_forecast)
+
     for i in range(forecast_length):
         temp = week_forecast[i]
         if temp == "Clouds":
@@ -25,13 +25,11 @@ def homeDashboard():
         week_images.append(image)
 
     forecast_image_current = current_forcast_image(day_data[3])
-    print(forecast_image_current)
-    print(week_images)
 
 
     return render_template("index.html", day_temps=day_data[0], day_timestamps=day_data[1], current_temp=day_data[2],
                            current_forecast=day_data[3], hi_low_of_day=day_data[4], weekday_strings=day_data[5],
-                           weekday_data=day_data[6], week_images=week_images,
+                           weekday_data=day_data[6], location=day_data[8],week_images=week_images,
                            forecast_image_current=forecast_image_current)
 
 

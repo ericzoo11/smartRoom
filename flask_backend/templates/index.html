@@ -9,39 +9,43 @@
         <h1>Dashboard</h1>
             <h2>Weather</h2>
                 <div id="weatherContainer" class="container">
-                    <div id="currentforecast" class="row">
-                        <div id="forecasttemp" class="column">
-                            <div class="row" style="font-size: 15px">
-                                <p> {{ current_forecast }} </p>
+                    <div id="current_forecast_box" class="row">
+                        <div id="current_info_col" class="column">
+                            <div class="row">
+                                <p style="margin: auto; font-size: 30px"> {{ location }} </p>
                             </div>
                             <div class="row">
-                                <p> {{ current_temp }}° </p>
+                                <p style="margin: auto;"> {{ current_forecast }} </p>
                             </div>
-                            <div class="row" style="font-size:15px">
-                                <p> Hi: {{ hi_low_of_day[0] }} ° Low: {{ hi_low_of_day[1] }}° </p>
+                            <div class="row">
+                                <p style="font-size:110px; margin-top: -20px;margin-bottom: -30px"> {{ current_temp }}° </p>
+                            </div>
+                            <div class="row">
+                                <p style="margin: auto;"> Hi: {{ hi_low_of_day[0] }}° &nbsp;&nbsp; low: {{ hi_low_of_day[1] }}° </p>
                             </div>
                         </div>
-                        <div id="forecast" class="column">
-                            <img src="{{ forecast_image_current }}" alt="test" style="width:170px; height:170px">
+                        <div id="current_icon_col" class="column">
+                            <img src="{{ forecast_image_current }}" alt="test">
                         </div>
-                        <div id="weeklyforecast" class="column">
+                        <div id="weekly_forecast_col" class="column" style="margin-right: 10px">
                             <table class="weekdata">
                                 {%for i in range(0, 5)%}
-                                    <tr>
-                                        <th>
+                                    <tr style="height: 45px;">
+                                        <th style="font-size: 20px; width: 55px">
                                             {{ weekday_strings[i] }}
                                         </th>
-                                        <td style="font-size:12px;">Hi: {{ weekday_data[i][0] }} Low: {{ weekday_data[i][1] }}</td>
-                                        <td>
-                                            <img src= "{{ week_images[i] }}" alt="test" style="width:30px; height:30px">
+                                        <td style="font-size:15px;"> &nbsp;&nbsp;{{ weekday_data[i][0] }} &nbsp;&nbsp; {{ weekday_data[i][1] }} &nbsp;&nbsp;</td>
+                                        <td style="width: 60px">
+                                            <img src= "{{ week_images[i] }}" alt="test" style="width:35px; height:35px">
                                         </td>
                                     </tr>
                                 {%endfor%}
                             </table>
                         </div>
                     </div>
+                    <hr style="height: 2px;background:antiquewhite; border-radius: 3px; margin-top: -6px;margin-bottom: 0">
                     <div id="heading1" class="row">
-                        <p>Throughout Day</p>
+                        <p style="font-size: 15px; padding-top: 10px;margin-bottom: -2px">Throughout Day</p>
                     </div>
                     <div>
                         <table class="feelsliketable">
